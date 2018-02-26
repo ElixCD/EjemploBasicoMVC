@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EjemploBasicoMVC.Models.Contexto.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<header>
+    <h2>Usuarios</h2>
+</header>
+
+<p>
+    @Html.ActionLink("Nuevo Usuario", "Create")
+</p>
+
+<section name="grid-helper">
+    @grid.GetHtml(
+    tableStyle: "table",
+    exclusions: new[] {
+        "fechaAlta",
+        "horaAlta",
+        "fechaBaja",
+        "horaBaja"
+         },
+    columns: new[] {
+        grid.Column(
+            "clave",
+            header: "Clave"
+        ),
+        grid.Column(
+            "nombre",
+            header: "Nombre"
+        ),
+        grid.Column("activo",
+        header: "Activo",
+        format: @<input type="checkbox" name="activo" id="activo" disabled value="" checked="@item" />
+        ),
+        grid.Column(
+            "",
+            header: "Acciones",
+            format: @<text>
+                @Html.ActionLink("Detalles", "Details", new { id = item.id })
+                |
+                @Html.ActionLink("Editar", "Edit", new { id = item.id })
+                |
+                @Html.ActionLink("Eliminar", "Delete", new {id = item.id })
+            </text>)
+    })
+
+</section>

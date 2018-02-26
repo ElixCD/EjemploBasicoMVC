@@ -1,28 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EjemploBasicoMVC.Models.Contexto;
+using System.Data.SqlClient;
 
 namespace EjemploBasicoMVC.Controllers
 {
     public class UsuarioController : Controller
     {
-        private ContextModel context = new ContextModel();
+        private ContextModel db = new ContextModel();
+
         // GET: Usuario
         public async Task<ActionResult> Index()
-        {         
-            return View(await context.Usuario.ToListAsync());
-        }
-
-        // GET: Usuario/Details/5
-        public ActionResult Details(int id)
         {
-            return View();
+            return View(await db.Usuario.ToListAsync());
+        }
+        
+        // GET: Usuario/Details/5
+        public async Task<ActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = await db.Usuario.FindAsync(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
         }
 
         // GET: Usuario/Create
@@ -32,73 +44,85 @@ namespace EjemploBasicoMVC.Controllers
         }
 
         // POST: Usuario/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "id,clave,nombre,contrasena")] Usuario usuario)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                using (var strd = new Models.Contexto.ContextModel())
-                {
-                    using (var tr = strd.Database.BeginTransaction())
-                    {
-                        SqlParameter clave = new SqlParameter("@clave", Request.Form["clave"]);
-                        SqlParameter nombre = new SqlParameter("@nombre", Request.Form["nombre"]);
-                        SqlParameter contrasena = new SqlParameter("@contrasena", Request.Form["contrasena"]);
-                        strd.Database.ExecuteSqlCommand("UsuarioAlta @clave @nombre @contrasena", clave,nombre,contrasena);
-
-                    }
-                }
+                await usuario.Salvar();                
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(usuario);
         }
 
         // GET: Usuario/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = await db.Usuario.FindAsync(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
         }
 
         // POST: Usuario/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "id,clave,nombre,contrasena,activo,fechaAlta,horaAlta,fechaBaja,horaBaja")] Usuario usuario)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                //db.Entry(usuario).State = EntityState.Modified;
+                await usuario.Editar();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(usuario);
         }
 
         // GET: Usuario/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = await db.Usuario.FindAsync(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
         }
 
         // POST: Usuario/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Usuario usuario = await db.Usuario.FindAsync(id);
+            db.Usuario.Remove(usuario);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

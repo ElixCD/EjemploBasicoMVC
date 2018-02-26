@@ -50,6 +50,12 @@ namespace EjemploBasicoMVC.Models.Contexto
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Venta> Venta { get; set; }
 
+        [NotMapped]
+        public int ErrorCode { get; private set; }
+
+        [NotMapped]
+        public string Mensaje { get; private set; }
+
         public async Task Salvar()
         {
             await Task.Run(() =>
@@ -66,9 +72,10 @@ namespace EjemploBasicoMVC.Models.Contexto
                             contexto.Database.ExecuteSqlCommand("UsuarioAlta @clave, @nombre, @contrasena", clave, nombre, contrasena);
                             trn.Commit();
                         }
-                        catch
+                        catch(Exception ex)
                         {
                             trn.Rollback();
+                            throw new Exception(ex.Message, ex.InnerException);
                         }
                     }
                 }
@@ -83,18 +90,19 @@ namespace EjemploBasicoMVC.Models.Contexto
                 {
                     using (var trn = contexto.Database.BeginTransaction())
                     {
+                        SqlParameter id = new SqlParameter("@id", this.id);
                         SqlParameter clave = new SqlParameter("@clave", this.clave);
                         SqlParameter nombre = new SqlParameter("@nombre", this.nombre);
                         SqlParameter contrasena = new SqlParameter("@contrasena", this.contrasena);
                         try
                         {
-                            contexto.Database.ExecuteSqlCommand("UsuarioAlta @clave @nombre @contrasena", clave, nombre, contrasena);
+                            contexto.Database.ExecuteSqlCommand("UsuarioActualiza @id, @clave, @nombre, @contrasena", id, clave, nombre, contrasena);
                             trn.Commit();                            
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-
                             trn.Rollback();
+                            throw new Exception(ex.Message, ex.InnerException);
                         }
                         
                     }
