@@ -1,0 +1,39 @@
+﻿@model List<EjemploBasicoMVC.Models.Contexto.Unidad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<header>
+    <h2>Unidades</h2>
+
+    <h3>Total pages: @Model.First().TotalPages</h3>
+</header>
+
+<section id="unidades">
+    @Html.Partial("ListaUnidades", Model)
+</section>
+
+
+
+@*<table>
+    <thead >
+        <tr>
+            <th>Descripción</th>
+            <th>Simbolo</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.descripcion)</td>
+                <td>@Html.DisplayFor(model => item.simbolo)</td>
+                <td>@Html.CheckBoxFor(model => item.activo, htmlAttributes: new { @disabled = true })</td>
+            </tr>
+        }        
+    </tbody>
+</table>*@
+
+<script src="~/Scripts/Scrolling.js"></script>

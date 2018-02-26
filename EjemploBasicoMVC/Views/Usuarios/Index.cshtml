@@ -1,0 +1,111 @@
+﻿@model IEnumerable<EjemploBasicoMVC.Models.Contexto.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<header>
+    <h2>Usuarios</h2>
+</header>
+
+<p>
+    @Html.ActionLink("Nuevo Usuario", "Create")
+</p>
+
+<section name="grid-manual">
+  
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.clave)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.activo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.horaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaBaja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.horaBaja)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.clave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.activo, htmlAttributes: new { @disabled = true })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaAlta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.horaAlta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaBaja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.horaBaja)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.id })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </table>
+</section>
+
+<section name="grid-helper">
+    @grid.GetHtml(
+    tableStyle: "table",
+    exclusions: new[] {
+        "fechaAlta",
+        "horaAlta",
+        "fechaBaja",
+        "horaBaja"
+         },
+    columns: new[] {
+        grid.Column(
+            "clave",
+            header: "Clave"
+        ),
+        grid.Column(
+            "nombre",
+            header: "Nombre"
+        ),
+        grid.Column("activo",
+        header: "Activo",
+        format: @<input type="checkbox" name="activo" id="activo" disabled value="" checked="@item" />
+        ),
+        grid.Column(
+            "",
+            header: "Acciones",
+            format: @<text>
+                @Html.ActionLink("Detalles", "Details", new { id = item.id })
+                |
+                @Html.ActionLink("Editar", "Edit", new { id = item.id })
+                |
+                @Html.ActionLink("Eliminar", "Delete", new {id = item.id })
+            </text>)
+    })
+
+</section>

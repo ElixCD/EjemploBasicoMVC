@@ -1,0 +1,37 @@
+﻿@model IEnumerable<EjemploBasicoMVC.Models.Contexto.Unidad>
+
+<!-- Creacion de grid de datos utilizando WebGrid -->
+@{
+    if (Model.Count() > 0)
+    {
+        WebGrid grid = new WebGrid(Model);
+        @grid.GetHtml(
+            tableStyle: "table",
+            columns: new[]{
+                grid.Column("id", "ID"),
+                grid.Column("simbolo", "Simbolo"),
+                grid.Column("descripcion", "Descripción"),
+                grid.Column("activo", "Activo", format: @<input type="checkbox" disabled name="activo" id="activo" checked="@item" />)
+            },
+           exclusions: new[]
+           {
+               "fechaAlta",
+               "horaAlta",
+               "fechaBaja",
+               "horaBaja"
+           }
+        );
+    }
+}
+
+<!--
+     Botones de avance y retroceso de paginación utilizando ActionLink del helper Ajax.
+    Para el correcto funcionamiento de manera asincrona, necesitamos incluir jquery.unobstrusive-ajax.js
+-->
+<div id="paginacion" name="paginacion" class="pager">
+    @Ajax.ActionLink("Primero", "Index", new { id = 1 }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
+    @Ajax.ActionLink("Anterior", "Index", new { id = (ViewBag.page - 1 < 1) ? 1 : (ViewBag.page-1) }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
+    <span>@ViewBag.page de @ViewBag.totalPages</span>
+    @Ajax.ActionLink("Siguiente", "Index", new { id = (ViewBag.page + 1 > ViewBag.totalPages) ? ViewBag.totalPages : (ViewBag.page+ 1) }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
+    @Ajax.ActionLink("Ultimo", "Index", new { id = @Model.First().TotalPages }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
+</div>

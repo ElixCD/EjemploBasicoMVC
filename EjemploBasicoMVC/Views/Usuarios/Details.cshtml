@@ -1,0 +1,82 @@
+﻿@model EjemploBasicoMVC.Models.Contexto.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles usuario</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contrasena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contrasena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaAlta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaAlta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaBaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaBaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaBaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaBaja)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

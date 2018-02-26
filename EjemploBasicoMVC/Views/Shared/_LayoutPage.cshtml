@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html lang="es">
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--Menu, normalmente en el layout principal, pero aqui es para mostrar el uso de Vistas parciales (PartialView) -->
+    @Html.Partial("SidePanel")
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    
+</body>
+</html>
