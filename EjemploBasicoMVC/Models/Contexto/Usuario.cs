@@ -95,7 +95,6 @@ namespace EjemploBasicoMVC.Models.Contexto
                         {
 
                             trn.Rollback();
-                            //throw new Exception;
                         }
                         
                     }

@@ -127,6 +127,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BaseDatos\ActualizaUsuario.sql" />
+    <Content Include="BaseDatos\AltaUsuario.sql" />
+    <Content Include="BaseDatos\BajaUsuario.sql" />
+    <Content Include="BaseDatos\ConsultaUsuarioClave.sql" />
+    <Content Include="BaseDatos\ListUsersPage.sql" />
+    <Content Include="BaseDatos\LoginUsuario.sql" />
+    <Content Include="BaseDatos\ProcedimientosClientes.sql" />
+    <Content Include="BaseDatos\ProcedimientosCompras.sql" />
+    <Content Include="BaseDatos\ProcedimientosProductos.sql" />
+    <Content Include="BaseDatos\ProcedimientosProveedores.sql" />
+    <Content Include="BaseDatos\ProcedimientosRelProductoProveedor.sql" />
+    <Content Include="BaseDatos\ProcedimientosUnidades.sql" />
+    <Content Include="BaseDatos\ProcedimientosUsuarios.sql" />
+    <Content Include="BaseDatos\ProcedimientosVentas.sql" />
+    <Content Include="BaseDatos\TiendaOnline.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
