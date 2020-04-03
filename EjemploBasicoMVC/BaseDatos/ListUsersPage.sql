@@ -1,3 +1,5 @@
+USE TiendaOnline;
+GO
 
 CREATE PROCEDURE ListUsersPage
 (

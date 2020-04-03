@@ -33,5 +33,5 @@
     @Ajax.ActionLink("Anterior", "Index", new { id = (ViewBag.page - 1 < 1) ? 1 : (ViewBag.page-1) }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
     <span>@ViewBag.page de @ViewBag.totalPages</span>
     @Ajax.ActionLink("Siguiente", "Index", new { id = (ViewBag.page + 1 > ViewBag.totalPages) ? ViewBag.totalPages : (ViewBag.page+ 1) }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
-    @Ajax.ActionLink("Ultimo", "Index", new { id = @Model.First().TotalPages }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
+    @Ajax.ActionLink("Ultimo", "Index", new { id = ViewBag.totalPages }, new AjaxOptions { UpdateTargetId = "unidades", InsertionMode = InsertionMode.Replace })
 </div>

@@ -1,3 +1,6 @@
+USE TiendaOnline;
+GO
+
 CREATE PROCEDURE RelProductoProveedorAlta
 (
 	@producto_id INT,

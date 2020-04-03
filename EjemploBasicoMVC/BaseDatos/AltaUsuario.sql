@@ -1,3 +1,6 @@
+USE TiendaOnline;
+GO
+
 CREATE PROCEDURE AltaUsuario
 (
 	@clave CHAR(15),

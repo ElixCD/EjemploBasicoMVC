@@ -15,6 +15,7 @@ CREATE TABLE Usuario
 	horaAlta TIME DEFAULT GETDATE() NOT NULL,
 	fechaBaja DATE,
 	horaBaja TIME,
+	estatus INTEGER,
 	CONSTRAINT PK_Usuario PRIMARY KEY (id),
 	CONSTRAINT UC_UsuarioClave UNIQUE (clave)
 );
