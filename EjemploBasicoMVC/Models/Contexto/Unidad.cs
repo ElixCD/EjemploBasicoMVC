@@ -4,11 +4,8 @@ namespace EjemploBasicoMVC.Models.Contexto
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Core.Objects;
-    using System.Data.Entity.Spatial;
     using System.Data.SqlClient;
     using System.Linq;
-    using System.Threading.Tasks;
 
     [Table("Unidad")]
     public partial class Unidad

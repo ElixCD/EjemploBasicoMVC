@@ -4,7 +4,6 @@ namespace EjemploBasicoMVC.Models.Contexto
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
     using System.Data.SqlClient;
     using System.Threading.Tasks;
 
